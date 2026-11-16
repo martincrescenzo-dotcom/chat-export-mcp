@@ -1,0 +1,25 @@
+# chat-export-mcp
+
+Zero-dependency **MCP server** that lets Claude Desktop, Cursor, or any MCP client read your **local chat exports**: WhatsApp `.txt`, Telegram Desktop `result.json`, DiscordChatExporter `.json`. One Python file, standard library only, offline. Nothing is uploaded.
+
+Ask your agent things like "summarize what Bob said about the deposit in this WhatsApp export", "find every message mentioning 'invoice'", or "who sent the most messages and when did the chat start".
+
+## Tools
+- `read_chat_export(path, query?, sender?, offset?, limit?)`: numbered messages (date, sender, text), keyword/sender filter, paging, plus the SHA-256 of the file.
+- `chat_export_stats(path)`: messages per sender, first/last date, SHA-256.
+
+## Install
+```bash
+curl -O https://raw.githubusercontent.com/martincrescenzo-dotcom/chat-export-mcp/main/chat_export_mcp.py
+```
+Claude Desktop (`claude_desktop_config.json`) or Cursor (`.cursor/mcp.json`):
+```json
+{"mcpServers": {"chat-export": {"command": "python3", "args": ["/full/path/to/chat_export_mcp.py"]}}}
+```
+
+## Need a PDF for a lawyer, HR, or court?
+[ChatExhibit](https://martincrescenzo-dotcom.github.io/chatexhibit/) turns the same exports into a PDF in your browser. Free: chat-style PDF. **Exhibit edition (EUR 9 one-time):** numbered transcript with exhibit label, SHA-256 of the export, date/keyword/sender excerpts with visible gaps, no branding. Agents can find purchase details in its [llms.txt](https://martincrescenzo-dotcom.github.io/chatexhibit/llms.txt). Not legal advice.
+
+See also: [whatsapp-chat-to-pdf](https://github.com/martincrescenzo-dotcom/whatsapp-chat-to-pdf) · [telegram-chat-to-pdf](https://github.com/martincrescenzo-dotcom/telegram-chat-to-pdf) · [discord-chat-to-pdf](https://github.com/martincrescenzo-dotcom/discord-chat-to-pdf)
+
+MIT License.
