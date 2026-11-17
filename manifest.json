@@ -1,0 +1,22 @@
+{
+  "manifest_version": "0.2",
+  "name": "chat-export-mcp",
+  "display_name": "Chat Export Reader",
+  "version": "0.1.0",
+  "description": "Read local WhatsApp, Telegram and Discord chat exports offline: search, filter by sender, stats, SHA-256.",
+  "author": {"name": "French Frogs", "url": "https://github.com/martincrescenzo-dotcom"},
+  "repository": {"type": "git", "url": "https://github.com/martincrescenzo-dotcom/chat-export-mcp"},
+  "homepage": "https://github.com/martincrescenzo-dotcom/chat-export-mcp",
+  "license": "MIT",
+  "keywords": ["whatsapp", "telegram", "discord", "chat-export", "evidence"],
+  "server": {
+    "type": "python",
+    "entry_point": "chat_export_mcp.py",
+    "mcp_config": {"command": "python3", "args": ["${__dirname}/chat_export_mcp.py"]}
+  },
+  "tools": [
+    {"name": "read_chat_export", "description": "Parse a local chat export and return messages with keyword/sender filter and paging."},
+    {"name": "chat_export_stats", "description": "Message counts per sender, date range and SHA-256 of a local chat export."}
+  ],
+  "compatibility": {"platforms": ["darwin", "win32", "linux"], "runtimes": {"python": ">=3.8"}}
+}

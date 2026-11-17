@@ -1,0 +1,16 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.martincrescenzo-dotcom/chat-export-mcp",
+  "title": "Chat Export Reader",
+  "description": "Read local WhatsApp, Telegram and Discord chat exports offline: search, sender filter, stats, SHA-256.",
+  "repository": {"url": "https://github.com/martincrescenzo-dotcom/chat-export-mcp", "source": "github"},
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/martincrescenzo-dotcom/chat-export-mcp/releases/download/v0.1.0/chat-export-mcp.mcpb",
+      "fileSha256": "a686331dcb47a64921028dedbfbb2bbf23c87cf314637a9400f8c0e130f3240c",
+      "transport": {"type": "stdio"}
+    }
+  ]
+}

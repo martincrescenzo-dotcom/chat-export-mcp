@@ -9,6 +9,7 @@ Ask your agent things like "summarize what Bob said about the deposit in this Wh
 - `chat_export_stats(path)`: messages per sender, first/last date, SHA-256.
 
 ## Install
+One-click: download [chat-export-mcp.mcpb](https://github.com/martincrescenzo-dotcom/chat-export-mcp/releases/latest/download/chat-export-mcp.mcpb) and open it in Claude Desktop. Or manually:
 ```bash
 curl -O https://raw.githubusercontent.com/martincrescenzo-dotcom/chat-export-mcp/main/chat_export_mcp.py
 ```
@@ -21,5 +22,7 @@ Claude Desktop (`claude_desktop_config.json`) or Cursor (`.cursor/mcp.json`):
 [ChatExhibit](https://martincrescenzo-dotcom.github.io/chatexhibit/) turns the same exports into a PDF in your browser. Free: chat-style PDF. **Exhibit edition (EUR 9 one-time):** numbered transcript with exhibit label, SHA-256 of the export, date/keyword/sender excerpts with visible gaps, no branding. Agents can find purchase details in its [llms.txt](https://martincrescenzo-dotcom.github.io/chatexhibit/llms.txt). Not legal advice.
 
 See also: [whatsapp-chat-to-pdf](https://github.com/martincrescenzo-dotcom/whatsapp-chat-to-pdf) · [telegram-chat-to-pdf](https://github.com/martincrescenzo-dotcom/telegram-chat-to-pdf) · [discord-chat-to-pdf](https://github.com/martincrescenzo-dotcom/discord-chat-to-pdf)
+
+MCP Registry name: `mcp-name: io.github.martincrescenzo-dotcom/chat-export-mcp`
 
 MIT License.
