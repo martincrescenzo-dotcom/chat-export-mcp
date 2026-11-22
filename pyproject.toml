@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chat-export-mcp"
+version = "0.1.0"
+description = "Zero-dependency MCP server that reads local WhatsApp, Telegram and Discord chat exports"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+keywords = ["mcp", "model-context-protocol", "whatsapp", "telegram", "discord", "chat-export"]
+
+[project.urls]
+Homepage = "https://github.com/martincrescenzo-dotcom/chat-export-mcp"
+
+[project.scripts]
+chat-export-mcp = "chat_export_mcp:main"
+
+[tool.setuptools]
+py-modules = ["chat_export_mcp"]
