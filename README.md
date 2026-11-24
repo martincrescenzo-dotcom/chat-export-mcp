@@ -4,6 +4,8 @@ Zero-dependency **MCP server** that lets Claude Desktop, Cursor, or any MCP clie
 
 Ask your agent things like "summarize what Bob said about the deposit in this WhatsApp export", "find every message mentioning 'invoice'", or "who sent the most messages and when did the chat start".
 
+Need the chat as a PDF (for a lawyer, HR, insurer or court file)? [ChatExhibit](https://martincrescenzo-dotcom.github.io/chatexhibit/) makes one in your browser from the same export: free chat-style PDF, or a numbered, hashed Exhibit edition for EUR 9 one-time.
+
 ## Tools
 - `read_chat_export(path, query?, sender?, offset?, limit?)`: numbered messages (date, sender, text), keyword/sender filter, paging, plus the SHA-256 of the file.
 - `chat_export_stats(path)`: messages per sender, first/last date, SHA-256.
