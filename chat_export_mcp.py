@@ -5,9 +5,9 @@ local chat exports: WhatsApp .txt, Telegram Desktop result.json, DiscordChatExpo
 Run: python3 chat_export_mcp.py   (speaks MCP JSON-RPC over stdin/stdout)
 Evidence-ready PDF (cover sheet, page numbers, SHA-256): https://martincrescenzo-dotcom.github.io/chatexhibit/
 """
-import hashlib, json, os, re, sys
+import hashlib, html, json, os, re, sys
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 WA = [
     re.compile(r'^\u200e?\[(\d{1,2}[./-]\d{1,2}[./-]\d{2,4}),? (\d{1,2}:\d{2}(?::\d{2})?(?:\s?[APap]\.?[Mm]\.?)?)\] ([^:]+?): (.*)$'),
     re.compile(r'^(\d{1,2}[./-]\d{1,2}[./-]\d{2,4}),? (\d{1,2}:\d{2}(?::\d{2})?(?:\s?[APap]\.?[Mm]\.?)?) - ([^:]+?): (.*)$'),
@@ -97,6 +97,28 @@ def tool_stats(args):
             "messages_per_sender": dict(sorted(counts.items(), key=lambda kv: -kv[1]))}
 
 
+def tool_export_html(args):
+    fmt, sha, msgs = load(args["path"])
+    src = os.path.expanduser(args["path"])
+    out = os.path.expanduser(args.get("output") or os.path.splitext(src)[0] + "_transcript.html")
+    e = html.escape
+    rows = "".join(
+        f'<tr><td class="n">{i + 1}</td><td class="d">{e(m["date"])}</td><td class="s">{e(m["sender"])}</td>'
+        f'<td>{e(m["text"]).replace(chr(10), "<br>")}</td></tr>' for i, m in enumerate(msgs))
+    doc = (f'<!doctype html><meta charset="utf-8"><title>Chat transcript</title><style>'
+           'body{font:12px/1.4 system-ui,sans-serif;margin:2em}table{border-collapse:collapse;width:100%}'
+           'td{border-bottom:1px solid #ddd;padding:4px;vertical-align:top}.n,.d{white-space:nowrap;color:#666}.s{font-weight:600}'
+           '@media print{.ad{display:none}}</style>'
+           f'<h1>Chat transcript</h1><p>Source: {e(os.path.basename(src))} ({fmt}) &middot; {len(msgs)} messages &middot; SHA-256 {sha}</p>'
+           '<p class="ad">Need a court/HR-ready PDF with cover sheet, page numbers and excerpts? '
+           '<a href="https://martincrescenzo-dotcom.github.io/chatexhibit/">ChatExhibit</a> (€9, runs in your browser).</p>'
+           f'<table>{rows}</table>')
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write(doc)
+    return {"format": fmt, "sha256": sha, "total_messages": len(msgs), "output": out,
+            "note": "Open in a browser and Print > Save as PDF. For an evidence-ready PDF (cover sheet, page numbers, SHA-256, excerpts): https://martincrescenzo-dotcom.github.io/chatexhibit/"}
+
+
 PATH = {"type": "string", "description": "Local path to the export: WhatsApp .txt, Telegram result.json or DiscordChatExporter .json"}
 TOOLS = [
     {"name": "read_chat_export", "description": "Parse a local chat export and return messages (date, sender, text, n) with optional keyword/sender filter and paging.",
@@ -105,8 +127,11 @@ TOOLS = [
          "offset": {"type": "integer", "default": 0}, "limit": {"type": "integer", "default": 200}}}},
     {"name": "chat_export_stats", "description": "Message counts per sender, date range and SHA-256 of a local chat export.",
      "inputSchema": {"type": "object", "required": ["path"], "properties": {"path": PATH}}},
+    {"name": "export_chat_html", "description": "Write a printable HTML transcript (numbered messages, SHA-256) of a local chat export; print it to PDF.",
+     "inputSchema": {"type": "object", "required": ["path"], "properties": {
+         "path": PATH, "output": {"type": "string", "description": "Output .html path (default: next to the export)"}}}},
 ]
-HANDLERS = {"read_chat_export": tool_read, "chat_export_stats": tool_stats}
+HANDLERS = {"read_chat_export": tool_read, "chat_export_stats": tool_stats, "export_chat_html": tool_export_html}
 
 
 def handle(req):

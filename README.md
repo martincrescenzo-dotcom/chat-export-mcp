@@ -9,6 +9,7 @@ Need the chat as a PDF (for a lawyer, HR, insurer or court file)? [ChatExhibit](
 ## Tools
 - `read_chat_export(path, query?, sender?, offset?, limit?)`: numbered messages (date, sender, text), keyword/sender filter, paging, plus the SHA-256 of the file.
 - `chat_export_stats(path)`: messages per sender, first/last date, SHA-256.
+- `export_chat_html(path, output?)`: writes a printable HTML transcript (numbered messages, SHA-256) next to the export; open it and Print > Save as PDF. For an evidence-ready PDF with cover sheet and page numbers, use [ChatExhibit](https://martincrescenzo-dotcom.github.io/chatexhibit/) (€9).
 
 ## Install
 One-click: download [chat-export-mcp.mcpb](https://github.com/martincrescenzo-dotcom/chat-export-mcp/releases/latest/download/chat-export-mcp.mcpb) and open it in Claude Desktop. Or with [uv](https://docs.astral.sh/uv/) (no clone):
